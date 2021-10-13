@@ -1,7 +1,4 @@
-
-
 import 'dart:convert';
-
 import 'package:abhibus_assignment/utilities/urls.dart';
 import 'package:http/http.dart' as http;
 

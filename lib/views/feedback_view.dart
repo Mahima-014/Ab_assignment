@@ -1,5 +1,6 @@
 import 'package:abhibus_assignment/model/feedback_model.dart';
 import 'package:abhibus_assignment/view_model/feedback_view_model.dart';
+import 'package:abhibus_assignment/views/user_feedbacks_view.dart';
 import 'package:flutter/material.dart';
 
 
@@ -48,6 +49,15 @@ class _FeedbackViewState extends State<FeedbackView> {
             ),
           ),
         ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterDocked,
+      floatingActionButton: FloatingActionButton(
+        // isExtended: true,
+        child: Icon(Icons.add),
+        backgroundColor: Colors.green,
+        onPressed: () {
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) => UserFeedbacksView()));
+        },
       ),
     );
   }
@@ -147,4 +157,6 @@ class _FeedbackViewState extends State<FeedbackView> {
           ),
         ));
   }
+
+
 }

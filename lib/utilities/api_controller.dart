@@ -8,7 +8,7 @@ import 'package:http/http.dart' as http;
 class ApiController{
   static ApiController apiController;
   ApiController._();
-  static getInstance()
+  static ApiController getInstance()
   {
     if(apiController==null)
       {

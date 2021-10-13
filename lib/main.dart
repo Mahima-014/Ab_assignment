@@ -1,3 +1,4 @@
+import 'package:abhibus_assignment/utilities/database_controller.dart';
 import 'package:abhibus_assignment/views/feedback_view.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -9,8 +10,20 @@ void main()  async {
 
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   // This widget is the root of your application.
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    initializeDatabase();
+
+  }
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -21,5 +34,9 @@ class MyApp extends StatelessWidget {
       ),
       home: FeedbackView(),
     );
+  }
+
+  initializeDatabase() async{
+   await DatabaseController.getInstance().connectToDB();
   }
 }

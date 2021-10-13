@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class FirebaseController{
   static FirebaseController firebaseController;
   FirebaseController._();
-  static getInstance()
+  static FirebaseController getInstance()
   {
     if(firebaseController == null)
       {

@@ -21,4 +21,10 @@ class FeedbackRepository{
     });
     return feedbackList;
   }
+
+  saveFeedbacksToDatabase() async
+  {
+    List<FeedbackModel> feedbackList = await getFeedbackData();
+
+  }
 }

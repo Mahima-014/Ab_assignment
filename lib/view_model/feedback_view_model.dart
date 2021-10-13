@@ -3,7 +3,7 @@ import 'package:abhibus_assignment/repository/feedback_repository.dart';
 
 class FeedbackViewModel{
   FeedbackRepository feedbackRepository = FeedbackRepository();
-  sumbmitFeedback(FeedbackModel feedback)
+  saveFeedback(FeedbackModel feedback)
   {
     feedbackRepository.saveFeedbacks(feedback);
   }

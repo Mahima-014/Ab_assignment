@@ -30,7 +30,7 @@ class _FeedbackViewState extends State<FeedbackView> {
               padding: const EdgeInsets.all(15.0),
               child: Column(
                 children: [
-                  buildTextField('First Name', nameController),
+                  buildTextField('Name', nameController),
                   SizedBox(
                     height: MediaQuery.of(context).size.height/23,
                   ),
@@ -124,7 +124,7 @@ class _FeedbackViewState extends State<FeedbackView> {
         child: ElevatedButton(
           onPressed: () async {
             if (_formKey.currentState.validate()) {
-              feedbackViewModel.sumbmitFeedback(FeedbackModel(name: nameController.text, email:emailController.text, feedback:feedbackController.text));
+              feedbackViewModel.saveFeedback(FeedbackModel(name: nameController.text, email:emailController.text, feedback:feedbackController.text));
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 content: Text('Thanks for the feedback'),
               ));

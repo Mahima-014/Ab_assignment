@@ -125,6 +125,9 @@ class _FeedbackViewState extends State<FeedbackView> {
           onPressed: () async {
             if (_formKey.currentState.validate()) {
               feedbackViewModel.sumbmitFeedback(FeedbackModel(name: nameController.text, email:emailController.text, feedback:feedbackController.text));
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text('Thanks for the feedback'),
+              ));
               
             }
           },

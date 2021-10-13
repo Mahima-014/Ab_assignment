@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "629062262247",
+    "project_id": "abhibus-assignment",
+    "storage_bucket": "abhibus-assignment.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:629062262247:android:ff560c1ccb72c62fcaf142",
+        "android_client_info": {
+          "package_name": "com.example.abhibus_assignment"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "629062262247-tp1c0k4l1b3ojj2pcufbdbgnk6qk2hd2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.abhibus_assignment",
+            "certificate_hash": "8e03a9b71ae7e8a3152d7d095a5c2041ea07fbb6"
+          }
+        },
+        {
+          "client_id": "629062262247-vbttk467fa4virbu99kume5istvj8rde.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAfRJSM1nXblfY0QUdj9kzM-xKJdIgu7vg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "629062262247-vbttk467fa4virbu99kume5istvj8rde.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

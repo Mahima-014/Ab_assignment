@@ -6,7 +6,6 @@ class DatabaseController{
   String path;
   static Database database;
   static int lastID;
-  static List<Map> list;
   static const dbName = 'feedbacks.db';
 
   DatabaseController._();
@@ -32,7 +31,8 @@ class DatabaseController{
           "CREATE TABLE feedbacks(id INTEGER PRIMARY KEY, "
               "name varchar, "
               "email varchar, "
-              "feedback varchar"
+              "feedback varchar, "
+              "UNIQUE email ON CONFLICT REPLACE"
               ")"
       );
     });
@@ -67,7 +67,6 @@ class DatabaseController{
       print('insert : Table does not exists');
       return;
     }
-    //var values = {'name':'my_name','type':'my_type'};
     await database.insert(tableName, map);
   }
 
@@ -85,8 +84,10 @@ class DatabaseController{
 
 
   // To get records from the table.
-  Future<List<Map>> getRecords(String query) async
+  Future<List<Map>> getRecords() async
   {
+    List<Map> list;
+    String query = "SELECT * FROM feedbacks";
     try{
       // Get the records
       list = await database.rawQuery(query);
@@ -121,24 +122,6 @@ class DatabaseController{
     await database.update(tableName, map, where: where);
   }
 
-
-  //Get Last Inserted ID
-  Future<int> getLastID(String tableName) async {
-
-    try
-    {
-      List<Map> listOfLastInsertedID = await database.rawQuery('SELECT * FROM $tableName ORDER BY id DESC LIMIT 1');
-      lastID = listOfLastInsertedID.elementAt(0).values.elementAt(0);
-      print('LastID : $lastID');
-    }
-    catch(e)
-    {
-      print("EXCEPTION getLastID: ${e.toString()}");
-      return -2;
-    }
-
-    return lastID;
-  }
 
 
 

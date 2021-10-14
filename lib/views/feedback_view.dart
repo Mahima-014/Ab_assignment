@@ -142,7 +142,7 @@ class _FeedbackViewState extends State<FeedbackView> {
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 content: Text('Thanks for the feedback'),
               ));
-              
+
             }
           },
           style: ElevatedButton.styleFrom(

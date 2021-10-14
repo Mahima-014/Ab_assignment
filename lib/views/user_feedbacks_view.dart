@@ -13,37 +13,40 @@ class _UserFeedbacksViewState extends State<UserFeedbacksView> {
   UserFeedbacksViewModel userFeedbacksViewModel = UserFeedbacksViewModel();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: FutureBuilder <List<FeedbackModel>>(
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.none &&
-              snapshot.hasData == null) {
-            //print('project snapshot data is: ${projectSnap.data}');
-            return Container(
-              child:Text("No data Available"),
+    return SingleChildScrollView(
+      child: Scaffold(
+        body: FutureBuilder <List<FeedbackModel>>(
+          builder: (context, snapshot) {
+            if (snapshot.hasData == false) {
+              //print('project snapshot data is: ${projectSnap.data}');
+              return Center(
+                child: Container(
+                  child:CircularProgressIndicator(),
+                ),
+              );
+            }
+            return ListView.builder(
+              shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: snapshot.data.length,
+                itemBuilder: (BuildContext context,int index){
+                  return Card(
+                    child: Column(
+                      children: [
+                        _buildText('Name' , snapshot.data[index].name),
+                        SizedBox(width: 5,),
+                        _buildText('Email',snapshot.data[index].email ),
+                        SizedBox(width: 5),
+                        _buildText('Feedbacks',snapshot.data[index].feedback),
+                      ],
+                    ),
+                  );
+                }
             );
-          }
-          return ListView.builder(
-            shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              itemCount: snapshot.data.length,
-              itemBuilder: (BuildContext context,int index){
-                return Card(
-                  child: Column(
-                    children: [
-                      _buildText('Name' , snapshot.data[index].name),
-                      SizedBox(width: 5,),
-                      _buildText('Email',snapshot.data[index].email ),
-                      SizedBox(width: 5),
-                      _buildText('Feedbacks',snapshot.data[index].feedback),
-                    ],
-                  ),
-                );
-              }
-          );
-        },
-        future: userFeedbacksViewModel.getFeedbackList(),
-      )
+          },
+          future: userFeedbacksViewModel.getFeedbackList(),
+        )
+      ),
     );
   }
 

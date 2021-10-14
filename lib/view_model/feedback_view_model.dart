@@ -8,4 +8,10 @@ class FeedbackViewModel{
   {
     feedbackRepository.saveFeedbacks(feedback);
   }
+
+
+  updateFeedbacksinDatabase()
+  {
+    feedbackRepository.updateDatabase();
+  }
 }

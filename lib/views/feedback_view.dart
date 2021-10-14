@@ -50,14 +50,17 @@ class _FeedbackViewState extends State<FeedbackView> {
           ),
         ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterDocked,
-      floatingActionButton: FloatingActionButton(
-        // isExtended: true,
-        child: Icon(Icons.add),
-        backgroundColor: Colors.green,
-        onPressed: () {
-          Navigator.of(context).push(MaterialPageRoute(builder: (context) => UserFeedbacksView()));
-        },
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: FloatingActionButton(
+          // isExtended: true,
+          child: Icon(Icons.arrow_forward),
+          backgroundColor: Colors.black,
+          onPressed: () {
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) => UserFeedbacksView()));
+          },
+        ),
       ),
     );
   }
@@ -135,6 +138,7 @@ class _FeedbackViewState extends State<FeedbackView> {
           onPressed: () async {
             if (_formKey.currentState.validate()) {
               feedbackViewModel.saveFeedback(FeedbackModel(name: nameController.text, email:emailController.text, feedback:feedbackController.text));
+              feedbackViewModel.updateFeedbacksinDatabase();
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 content: Text('Thanks for the feedback'),
               ));

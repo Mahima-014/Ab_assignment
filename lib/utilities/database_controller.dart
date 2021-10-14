@@ -2,21 +2,18 @@ import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
 class DatabaseController{
-  var databasesPath;
-  String path;
   static Database database;
-  static int lastID;
   static const dbName = 'feedbacks.db';
 
   DatabaseController._();
   static DatabaseController databaseController;
 
- static DatabaseController getInstance()
+  static DatabaseController getInstance()
   {
     if(databaseController==null)
-      {
-        databaseController = DatabaseController._();
-      }
+    {
+      databaseController = DatabaseController._();
+    }
     return databaseController;
   }
 
@@ -28,106 +25,41 @@ class DatabaseController{
     database = await openDatabase(path, version: 1, onCreate: (Database db, int version) async {
       //
       await db.execute(
-          "CREATE TABLE feedbacks(id INTEGER PRIMARY KEY, "
+          "CREATE TABLE feedbacks(id varchar PRIMARY KEY, "
               "name varchar, "
               "email varchar, "
-              "feedback varchar, "
-              "UNIQUE email ON CONFLICT REPLACE"
+              "feedback varchar "
               ")"
       );
     });
     print('Initialized DB');
   }
 
-  // Determine whether the table exists.
-  isTableExits(String tableName) async {
-    //Built-in table sqlite_master
-    var sql ="SELECT * FROM sqlite_master WHERE TYPE = 'table' AND NAME = '$tableName'";
-    var res = await database.rawQuery(sql);
-    var returnRes = res!=null && res.length > 0;
-    return returnRes;
-  }
 
-  //Create table
-  createTableIfNotExists(String tableName, String query) async {
-    //var sql = 'CREATE TABLE $tableName (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, type TEXT)';
-    var sql = query;
-    if (await isTableExits(tableName) == true) {
-      print('createTableIfNotExists : Table does exists');
-      return;
-    }
-    await database.execute(sql);
-  }
-
-
-  // To insert the data in db.
   insert(String tableName, Map map) async {
-    // Determine whether the table exists
-    if (await isTableExits(tableName) != true) {
-      print('insert : Table does not exists');
-      return;
-    }
-    await database.insert(tableName, map);
-  }
-
-
-
-  // To query the data.
-  query(String tableName, List list) async {
-    //var myColumns = ['name', 'type'];
-    var result = await database.query(tableName, columns: list);
-    for (var x in result) {
-      print(x.keys);
-      print(x.values);
+    try{
+      int res = await database.insert(tableName, map);//
+      print("res $res");
+    } catch(e)
+    {
+      print("EXCEPTION: $e");
     }
   }
 
 
-  // To get records from the table.
   Future<List<Map>> getRecords() async
   {
-    List<Map> list;
     String query = "SELECT * FROM feedbacks";
+    List<Map> list=null;
     try{
-      // Get the records
       list = await database.rawQuery(query);
-      print("getRecords : $list");
+      print("getRecords: $list");
     }
     catch(e)
     {
-      print("EXCEPTION getRecords: ${e.toString()}");
       return null;
     }
 
     return list;
-  }
-
-  // To delete data from table.
-  delete(String tableName, String where, List list) async {
-    //var myWhere = 'name = ?';
-    //var myArgs = ['cat'];
-    try{
-      await database.delete(tableName, where: where, whereArgs: list);
-      print('Deleted: $tableName');
-    }
-    catch(e)
-    {
-      print("EXCEPTION delete: ${e.toString()}");
-    }
-  }
-
-  // To update the data from table.
-  update(String tableName, Map map, String where) async {
-    //var values = {'name':'my_name','type':'my_type'};
-    await database.update(tableName, map, where: where);
-  }
-
-
-
-
-  // To shut down the db.
-  close () async{
-    database?.close();
-    database = null;
   }
 }

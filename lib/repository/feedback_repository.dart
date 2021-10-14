@@ -20,7 +20,6 @@ class FeedbackRepository{
     response.forEach((element){
       feedbackList.add(FeedbackModel.fromJson(element));
     });
-    saveFeedbacksToDatabase(feedbackList);
     return feedbackList;
   }
 
@@ -29,6 +28,13 @@ class FeedbackRepository{
     feedbackList.forEach((element) {
       DatabaseController.getInstance().insert('feedbacks', element.toJson());
     });
+  }
+
+  updateDatabase() async
+  {
+      List<FeedbackModel> list = await getFeedbackDataFromApi();
+      saveFeedbacksToDatabase(list);
+
   }
 
 }
